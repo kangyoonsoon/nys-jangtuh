@@ -18,12 +18,12 @@ public class BoardController {
     @Autowired
     private BoardRepository boardRepository;
 
-    @GetMapping("/list")
+    @GetMapping("/")
     public String list(Model model){
 
         List<Board> boards = boardRepository.findAll();
-//        System.out.println(boards);
+        System.out.println(boards);
         model.addAttribute("boards", boards);
-        return "board/list";
+        return "boards/board";
     }
 }

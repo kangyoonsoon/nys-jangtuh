@@ -24,6 +24,7 @@ public class Board {
     private String pic4;
     private String pic5;
     private Date date;
+    private int view;
     private String user_id;
 
 
