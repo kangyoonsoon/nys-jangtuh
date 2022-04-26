@@ -9,9 +9,7 @@
 				<div class="col-md-6 px-0">
 					<h1 class="display-4 fst-italic" th:text="${title}">게시판</h1>
 					<p class="lead my-3">
-						Multiple lines of text that form the lede, informing new readers
-						quickly and efficiently about what’s most interesting in this post’s
-						contents.
+						총 건수: <span th:text="${#lists.size(boards)}"></span>
 					</p>
 					<p class="lead mb-0">
 						<a href="#" class="text-white fw-bold">Continue reading...</a>
