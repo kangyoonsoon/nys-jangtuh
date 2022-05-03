@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -28,8 +30,16 @@ public class BoardController {
     }
 
     @GetMapping("/form")
-    public String from(Model model) {
+    public String getForm(Model model) {
+        model.addAttribute("board", new Board());
         return "boards/form";
+    }
+
+    @PostMapping("/form")
+    public String formSubmit(@ModelAttribute Board board) {
+        System.out.println("formSubmit()");
+        boardRepository.save(board);
+        return "redirect:/board/";
     }
 
 }
