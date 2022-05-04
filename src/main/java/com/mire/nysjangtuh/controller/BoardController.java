@@ -6,8 +6,10 @@ import com.mire.nysjangtuh.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -21,7 +23,7 @@ public class BoardController {
     public String list(Model model){
 
         List<Board> boards = boardRepository.findAll();
-        System.out.println(boards);
+//        System.out.println(boards);
         model.addAttribute("boards", boards);
         return "boards/board";
     }
@@ -41,8 +43,14 @@ public class BoardController {
     }
 
     @PostMapping("/form")
-    public String formSubmit(@ModelAttribute Board board) {
-        System.out.println("formSubmit()");
+    public String formSubmit(@Valid Board board, BindingResult bindingResult) {
+
+
+        if (bindingResult.hasErrors()) {
+            System.out.println("inside bindingResult.hasErrors()");
+            return "boards/form";
+        }
+
         boardRepository.save(board);
         return "redirect:/board/";
     }
