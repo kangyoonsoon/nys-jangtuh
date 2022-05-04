@@ -3,6 +3,7 @@ package com.mire.nysjangtuh.controller;
 
 import com.mire.nysjangtuh.model.Board;
 import com.mire.nysjangtuh.repository.BoardRepository;
+import com.mire.nysjangtuh.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,9 @@ public class BoardController {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private BoardValidator boardValidator;
 
     @GetMapping("/")
     public String list(Model model){
@@ -45,6 +49,7 @@ public class BoardController {
     @PostMapping("/form")
     public String formSubmit(@Valid Board board, BindingResult bindingResult) {
 
+        boardValidator.validate(board, bindingResult);
 
         if (bindingResult.hasErrors()) {
             System.out.println("inside bindingResult.hasErrors()");

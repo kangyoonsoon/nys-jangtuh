@@ -22,6 +22,7 @@ public class Board {
     @NotNull
     @Size(min=2, max=20)
     private String title;
+
     private String content;
     private String area;
     private String pic1;
