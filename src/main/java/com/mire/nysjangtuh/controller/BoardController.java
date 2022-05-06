@@ -5,6 +5,10 @@ import com.mire.nysjangtuh.model.Board;
 import com.mire.nysjangtuh.repository.BoardRepository;
 import com.mire.nysjangtuh.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,11 +27,17 @@ public class BoardController {
     @Autowired
     private BoardValidator boardValidator;
 
-    @GetMapping("/")
-    public String list(Model model){
+    @GetMapping("/list")
+    public String list(Model model, @PageableDefault(size = 3) Pageable pageable){
 
-        List<Board> boards = boardRepository.findAll();
-//        System.out.println(boards);
+
+        Page<Board> boards = boardRepository.findAll(pageable);
+
+        int startPage = Math.max(1, boards.getPageable().getPageNumber() - 4);
+        int endPage = Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + 4);
+
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
         model.addAttribute("boards", boards);
         return "boards/board";
     }
