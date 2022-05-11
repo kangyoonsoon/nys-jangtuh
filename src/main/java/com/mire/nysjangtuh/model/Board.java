@@ -1,12 +1,10 @@
 package com.mire.nysjangtuh.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -32,11 +30,16 @@ public class Board {
     private String pic5;
     private Date date;
     private int view;
-    private String user_id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
 
     public Board(){}
 
-    public Board(long num, String title, String content, String area, String pic1, String pic2, String pic3, String pic4, String pic5, Date date, int view, String user_id) {
+    public Board(long num, String title, String content, String area, String pic1, String pic2, String pic3, String pic4, String pic5, Date date, int view, User user) {
         this.num = num;
         this.title = title;
         this.content = content;
@@ -48,7 +51,7 @@ public class Board {
         this.pic5 = pic5;
         this.date = date;
         this.view = view;
-        this.user_id = user_id;
+        this.user = user;
     }
 
     public long getNum() {
@@ -139,11 +142,11 @@ public class Board {
         this.view = view;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
