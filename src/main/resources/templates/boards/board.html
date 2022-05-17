@@ -46,6 +46,8 @@
 					<th>View</th>
 					<th>Date</th>
 					<th>Writer</th>
+					<th>Image</th>
+
 				</tr>
 			</thead>
 			<tbody>
@@ -56,6 +58,10 @@
 					<td scope="col" th:text="${b.view}">View</td>
 					<td scope="col" th:text="${b.date}">Date</td>
 					<td scope="col" th:text="${b.user.username}">Writer</td>
+					<td scope="col">
+						<a th:text="${b.filename}" th:href="@{${b.filepath}}">img</a>
+						<img th:src="@{${b.filepath}}" th:attr="src=@{${b.filepath}}" src="paris.jpg" alt="Paris">
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -84,6 +90,10 @@
 		<div class="text-end">
 			<a class="btn btn-outline-dark" th:href="@{/board/form}">Write</a>
 		</div>
+
+		<hr>
+
+		<!-- <img th:src="@{${b.filepath}}" th:attr="src=@{/images/gtvglogo.png},title=#{logo},alt=#{logo}" src="paris.jpg" alt="Paris"> -->
 
 		<hr />
 

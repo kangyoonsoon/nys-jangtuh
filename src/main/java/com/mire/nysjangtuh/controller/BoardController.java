@@ -16,8 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -68,7 +70,10 @@ public class BoardController {
     }
 
     @PostMapping("/form")
-    public String formSubmit(@Valid Board board, Authentication authentication, BindingResult bindingResult) {
+    public String formSubmit(@Valid Board board,
+                             MultipartFile file,
+                             Authentication authentication,
+                             BindingResult bindingResult) throws IOException {
 
         boardValidator.validate(board, bindingResult);
 
@@ -79,7 +84,7 @@ public class BoardController {
         String username = authentication.getName();
 
         //boardRepository.save(board);
-        boardService.save(username, board);
+        boardService.save(username, board, file);
         return "redirect:/board/list";
     }
 

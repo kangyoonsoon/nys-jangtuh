@@ -31,6 +31,10 @@ public class Board {
     private Date date;
     private int view;
 
+    private String filename;
+    private String filepath;
+
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
@@ -39,7 +43,7 @@ public class Board {
 
     public Board(){}
 
-    public Board(long num, String title, String content, String area, String pic1, String pic2, String pic3, String pic4, String pic5, Date date, int view, User user) {
+    public Board(long num, String title, String content, String area, String pic1, String pic2, String pic3, String pic4, String pic5, Date date, int view, String filename, String filepath, User user) {
         this.num = num;
         this.title = title;
         this.content = content;
@@ -51,6 +55,8 @@ public class Board {
         this.pic5 = pic5;
         this.date = date;
         this.view = view;
+        this.filename = filename;
+        this.filepath = filepath;
         this.user = user;
     }
 
@@ -148,5 +154,21 @@ public class Board {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public String getFilepath() {
+        return filepath;
+    }
+
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
     }
 }

@@ -97,7 +97,7 @@
 			<div class="col-md-8">
 				<h3 class="pb-4 mb-4 fst-italic border-bottom">글쓰기</h3>
 
-				<form th:action="@{/board/form}" th:object="${board}" method="post">
+				<form th:action="@{/board/form}" th:object="${board}" method="post" enctype="multipart/form-data">
 					<input type="hidden" th:field="*{num}" />
 					<div class="form mb-3">
 						<input type="text" class="form-control" th:field="*{title}"
@@ -111,10 +111,12 @@
 					<!-- <div class="form-floating"> -->
 					<textarea th:field="*{content}" th:classappend="${#fields.hasErrors('content')} ? 'is-invalid'"
 						class="summernote" id="summernote" name="editordata" style="height: 100px"></textarea>
+
 					<!-- <label for="floatingTextarea2">글내용</label> -->
 					<div class="invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">
 						에러
 					</div>
+					<input type="file" name="file">
 					<!-- </div> -->
 					<div class="text-end mt-3">
 						<a type="button" class="btn btn-outline-info" th:href="@{/board/list}">취소</a>
