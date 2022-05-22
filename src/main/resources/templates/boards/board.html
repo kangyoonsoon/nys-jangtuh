@@ -70,7 +70,7 @@
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 				<li class="page-item"
-					th:classappend="${boards.getPageable().getPageNumber() + 1 == 1? 'disabled' : ''}">
+					th:classappend="${boards.getPageable().getPageNumber() + 1 == 1 ? 'disabled' : ''}">
 					<a class="page-link"
 						th:href="@{/board/list(page=${boards.getPageable().getPageNumber() - 1}, searchText=${param.searchText})}">Previous</a>
 				</li>

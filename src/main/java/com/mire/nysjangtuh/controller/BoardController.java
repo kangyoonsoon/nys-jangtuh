@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -37,17 +38,18 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(Model model,
-                       @PageableDefault(size = 3) Pageable pageable,
+                       @PageableDefault(page = 0, size = 10, sort = "num", direction = Sort.Direction.DESC ) Pageable pageable,
                        @RequestParam(required = false, defaultValue = "") String searchText){
 
 
         //Page<Board> boards = boardRepository.findAll(pageable);
-        Page<Board> boards = boardRepository.findByTitleOrContentContaining(searchText, searchText, pageable);
+        //Page<Board> boards = boardRepository.findByTitleOrContentContaining(searchText, searchText, pageable);
+        Page<Board> boards = boardService.findByTitleOrContentContaining(searchText, searchText, pageable);
 
 
 
         int startPage = Math.max(1, boards.getPageable().getPageNumber() - 4);
-        int endPage = Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + 4);
+        int endPage = Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + 5);
 
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
